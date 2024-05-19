@@ -1,0 +1,48 @@
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 3rem;
+    background: linear-gradient(35deg, #f8f1e1, #b9cdea);
+}
+
+section{
+    padding: 3rem;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 5px #999;
+}
+
+.login-item{
+    display: flex;
+    align-items: center;
+}
+
+.login-item p{
+    height: 100%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.key{
+    height: 2rem;
+    width: 10rem;
+    border: none;
+    pointer-events: none;
+}
+
+.value{
+    height: 2rem;
+    padding: 0 1rem;
+    width: 20rem;
+}
+
+.btn{
+    height: 2.5rem;
+    cursor: pointer;
+}
