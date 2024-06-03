@@ -1,0 +1,55 @@
+.humanResource{
+    padding: 7rem 3rem;
+    width: 100%;
+    box-sizing:border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.humanResource-section1{
+    display: flex;
+    align-items: center;
+    /* padding-left: 5rem; */
+}
+
+.button{
+    padding: 1rem 2rem;
+    border: 1px solid #898989;
+    cursor: pointer;
+    height: 3rem;
+}
+
+.button:hover{
+    background-color: #ec781d;
+}
+
+.Header-humanResource{
+    margin-top: 3rem;
+    background-color: #eee;
+    width: 100%;
+    padding-top: 1rem;
+    position: sticky;
+    top: 5rem;
+}
+
+.Header-humanResource table{
+    width: 100%;
+    max-height: (100vh - 9rem);
+}
+
+.table-header {
+    border: 2px solid #898989;
+    top: 8.96rem;
+  }
+
+  div.Header-humanResource td {
+    box-sizing:border-box;
+    border-bottom: 2px solid #999;
+    border-right: 1.5px solid #d75305;
+    border-left: 1.5px solid #d75305;
+  }
+
+  .action-button{
+    font-size: 2rem;
+    cursor: pointer;
+  }

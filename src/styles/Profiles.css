@@ -62,7 +62,7 @@ input[type="file"] {
 .Dropdown-control {
   text-wrap: wrap;
   overflow: hidden;
-  text-overflow:clip;
+  text-overflow: clip;
 }
 
 .cells {
@@ -78,7 +78,7 @@ input[type="file"] {
   /* position: sticky; */
 }
 
-.customer-content{
+.customer-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -86,12 +86,12 @@ input[type="file"] {
   gap: 0.5rem;
 }
 
-.customer-content a{
+.customer-content a {
   cursor: pointer;
   color: blue;
 }
 
-.customer-content a:hover{
+.customer-content a:hover {
   text-decoration: underline;
 }
 
@@ -99,8 +99,6 @@ input[type="file"] {
   user-select: none !important;
   pointer-events: auto !important;
   cursor: not-allowed !important;
-  text-align: center;
-  overflow: hidden; 
 }
 
 .cell {
@@ -128,7 +126,7 @@ a {
   text-decoration: none;
 }
 
-thead tr{
+thead tr {
   box-shadow: h-offset v-offset blur spread color;
   background: #9fccfb;
   border: 2px solid blue;
@@ -137,7 +135,7 @@ thead tr{
   top: 4.9rem;
 }
 
-thead tr th{
+thead tr th {
   border-collapse: collapse;
   border: none;
 }
@@ -155,95 +153,113 @@ div.profile table tbody {
 }
 
 div.profile td {
-  box-sizing:content-box;
+  box-sizing:border-box;
   border-bottom: 2px solid #999;
   border-right: 1.5px solid #d75305;
   border-left: 1.5px solid #d75305;
-} 
+}
 
 
 .model {
   max-height: fit-content;
   z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.0001);
+  backdrop-filter: blur(10px);
 }
 
-.overlay{
-  max-height: 100%;
-  max-width: 70%;
+.overlay {
+  /* margin-top: 5rem; */
+  height: calc(100vh - 5.3rem);
+  max-width: 92%;
   padding: 1rem 1rem;
   display: flex;
   overflow: scroll;
+  gap: 10rem;
+  background-color: #eee;
 }
 
-.model-content{
+.model-content {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  gap: 1rem;
+  /* gap: 1rem; */
+  width: 60rem;
 }
 
-.overlay-section{
+.overlay-section {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-.customer{
+
+.customer {
+  /* border: 1px solid red; */
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.content{
+.content {
   display: flex;
   align-items: center;
 }
-.p1{
+
+.p1 {
   padding: 0.5rem 1rem;
-  border: 1px solid red;
+  border: 1.5px solid #898989;
+  border-top-right-radius: 5px;
+  color: #00f;
 }
 
-.p2{
+.p2 {
   padding: 0.5rem 2rem;
-  border: 1px solid red;
+  border: 1.5px solid #898989;
   border-left: none;
   height: 2.25rem;
+  background-color: #fff;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+
 }
 
-.itinerary{
-  border: 1px solid red;
+.itinerary {
+  border: 1.5px solid #898989;
   padding: 0.5rem 2rem;
   text-wrap: wrap;
+  width: 100%;
+  background-color: #fff;
 }
 
-.input{
+.input {
   height: 2.25rem;
 }
 
-.linkedin{
-  width: 50rem;
+.linkedin {
+  width: 52rem;
 }
 
-.company{
+.company {
   width: 31rem;
 }
 
-.profession{
+.profession {
   width: 32rem;
 }
 
-.action-overlay{
+.action-overlay {
   margin-top: 3rem;
 }
 
-.action-overlay button{
+.action-overlay button {
   padding: 0.5rem 2rem;
   cursor: pointer;
 }
 
 .dropdown-1 .Dropdown-control {
-  width: 34rem !important; 
+  width: 34rem !important;
   height: 2.25rem;
+  text-wrap: nowrap;
 }
 
 .dropdown-2 .Dropdown-control {
@@ -252,6 +268,27 @@ div.profile td {
 }
 
 
-.btn-open-query{
+.btn-open-query {
   cursor: pointer;
+}
+
+.update-button{
+  margin-top: 2rem;
+  padding: 0.7rem 2rem;
+  cursor: pointer;
+  max-width: 15rem;
+  border-radius: 5px;
+  background-color: #ec781d;
+}
+
+.update-button:hover{
+  border: 1px solid #898989;
+  background-color: #eee;
+}
+
+.customer1 {
+  display: flex;
+  gap: 15rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }

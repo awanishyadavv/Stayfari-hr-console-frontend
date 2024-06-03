@@ -38,13 +38,16 @@ table{
   }
 
   .overlay{
-    border: 1px solid gray;
+    border: 2px solid #898989;
     width: fit-content;
-    background-color: rgba(199, 199, 199, 1);
+    background-color: #eee;
     display: flex;
     flex-direction: column;
+    padding: 1rem 4rem;
     align-items: center;
+    border-radius: 15px;
     padding: 2rem 2rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   }
 
   .existing-header{

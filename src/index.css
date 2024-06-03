@@ -19,3 +19,10 @@ body{
     font-family: 'Poppins', sans-serif;
     background-color: #eee;
 }
+
+/* src/BlurPage.css */
+.blur {
+    filter: blur(5px);
+    pointer-events: none;
+  }
+  

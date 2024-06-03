@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import "./Header.css";
-import logo1 from "../asstes/stayfari logo.jpg";
 import logo2 from "../asstes/Powered by Stayfari.png";
 import { Context, server } from "../index.js";
 import axios from "axios";
 
 const Header = () => {
-  const { isAuthenticated, isAuthenticatedAdmin, setIsAuthenticated, setIsAuthenticatedAdmin, user, setUser } = useContext(Context);
+  const { isAuthenticated, isAuthenticatedAdmin, setIsAuthenticated, setIsAuthenticatedAdmin, setUser } = useContext(Context);
 
   const logoutHandler = async (e) => {
     e.preventDefault();
@@ -36,9 +35,13 @@ const Header = () => {
         <Link to={"/"} className="nav-item">
           Home
         </Link>
-        <Link to={"/profiles"} className="nav-item">
-          Profiles
+        <Link to={"/humanResource"} className="nav-item">
+          Human Resource
         </Link>
+        <Link to={"/profiles"} className="nav-item">
+          Customer Insight
+        </Link>
+        
 
         {isAuthenticated ? (
           <div className="register">
