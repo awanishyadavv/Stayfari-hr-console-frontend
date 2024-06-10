@@ -4,7 +4,7 @@ import App from './App';
 import { createContext } from 'react'
 import './index.css';
 
-export const server = "http://localhost:5000/api/v1"
+export const server = "https://stayfari-hr-console-backend.onrender.com/api/v1"
 
 export const Context = createContext({ isAuthenticated: false, isAuthenticatedAdmin:false, user:{} })
 
