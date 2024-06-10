@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { Context, server } from "../index.js";
+import { Context, server } from "../../index.js";
 import toast from "react-hot-toast";
 import { Navigate } from "react-router-dom";
-import "../styles/Register.css";
+import "../../styles/Register.css";
+import AdminHeader from "../../components/AdminHeader.jsx";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -61,6 +62,8 @@ const Register = () => {
   if (isRegistrationSuccess) return <Navigate to={"/accessControl"} />;
 
   return (
+    <div className="admin-control-container">
+    <AdminHeader />
     <div className="login register12">
       <h2>Register New User</h2>
       <section>
@@ -136,6 +139,7 @@ const Register = () => {
           </button>
         </form>
       </section>
+    </div>
     </div>
   );
 };

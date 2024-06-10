@@ -35,23 +35,19 @@ const Header = () => {
         <Link to={"/"} className="nav-item">
           Home
         </Link>
+        <Link to={"/interviews"} className="nav-item">
+          Interview
+        </Link>         
         <Link to={"/humanResource"} className="nav-item">
-          Human Resource
-        </Link>
-        <Link to={"/profiles"} className="nav-item">
-          Customer Insight
-        </Link>
-        
+          Candidates
+        </Link> 
 
         {isAuthenticated ? (
           <div className="register">
             {isAuthenticatedAdmin && (
               <>
-                <Link to={"/accessControl"} className="nav-item">
-                  Access Control
-                </Link>
-                <Link to={"/register"} className="nav-item">
-                  Create User
+                <Link to={"/admin-controls"} className="nav-item">
+                  Admin
                 </Link>
               </>
             )}

@@ -1,268 +1,128 @@
-import React, { useState, useEffect } from "react";
-import { useTable, useSortBy } from "react-table";
+import React, { useContext, useState, useEffect } from "react";
 import "./HumanResource.css";
-import { MdOutlineDisplaySettings } from "react-icons/md";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { Context, server } from "../../index.js";
+import CandidateTable from "./components/CandidateTable";
+import AddCall from "./actions/AddCall";
+import AddReferral from "./actions/AddReferral";
+import ScheduleInterview from "./actions/ScheduleInterview";
+import MoveTo from "./actions/MoveTo";
+import AddComment from "./actions/AddComment";
 
 const HumanResource = () => {
-  const [loadePage, setLoadPage] = useState(1);
-  const [columns, setColumns] = useState([]);
-  const [data, setData] = useState([]);
+  const [dataId, setDataId] = useState("New Profile");
+  const [currentData, setCurrentData] = useState([]);
+  const [actionOverlay, setActionOverlay] = useState({
+    visible: false,
+    candidate: null,
+    action: null,
+  });
 
-  useEffect(() => {
-    setupTableColumns();
-    setData(mapDataToTableFormat());
-  }, []);
+  const {
+    isAuthenticated,
+    setIsAuthenticated,
+    setIsAuthenticatedAdmin,
+    user,
+    setUser,
+  } = useContext(Context);
 
-  const rawData = [
-    {
-      Name: "Jane Doe",
-      Phone: "+1-234-567-8901",
-      Email: "jane.doe@example.com",
-      Education: "Master of Science in Data Science, ABC University",
-      Experience: "2 years as Data Analyst at Data Insights Co.",
-      PermanentLocation: "123 Main Street, Hometown, USA",
-      CurrentLocation: "456 Elm Street, Metropolis, USA",
-      Profile_For: "Data Analyst",
-      AssignedTo: "John Smith",
-      Comment: "Strong analytical skills and proficient in Python and Tableau.",
-    },
-    {
-      Name: "John Doe",
-      Phone: "+1-987-654-3210",
-      Email: "john.doe@example.com",
-      Education: "Bachelor of Science in Computer Science, XYZ University",
-      Experience: "3 years as Software Developer at Tech Solutions Inc.",
-      PermanentLocation: "789 Oak Street, Smalltown, USA",
-      CurrentLocation: "101 Maple Street, Bigcity, USA",
-      Profile_For: "Software Developer",
-      AssignedTo: "Jane Smith",
-      Comment: "Expert in JavaScript and React.",
-    },
-    {
-        Name: "John Doe",
-        Phone: "+1-987-654-3210",
-        Email: "john.doe@example.com",
-        Education: "Bachelor of Science in Computer Science, XYZ University",
-        Experience: "3 years as Software Developer at Tech Solutions Inc.",
-        PermanentLocation: "789 Oak Street, Smalltown, USA",
-        CurrentLocation: "101 Maple Street, Bigcity, USA",
-        Profile_For: "Software Developer",
-        AssignedTo: "Jane Smith",
-        Comment: "Expert in JavaScript and React.",
-      },
-      {
-        Name: "John Doe",
-        Phone: "+1-987-654-3210",
-        Email: "john.doe@example.com",
-        Education: "Bachelor of Science in Computer Science, XYZ University",
-        Experience: "3 years as Software Developer at Tech Solutions Inc.",
-        PermanentLocation: "789 Oak Street, Smalltown, USA",
-        CurrentLocation: "101 Maple Street, Bigcity, USA",
-        Profile_For: "Software Developer",
-        AssignedTo: "Jane Smith",
-        Comment: "Expert in JavaScript and React.",
-      },
-      {
-        Name: "John Doe",
-        Phone: "+1-987-654-3210",
-        Email: "john.doe@example.com",
-        Education: "Bachelor of Science in Computer Science, XYZ University",
-        Experience: "3 years as Software Developer at Tech Solutions Inc.",
-        PermanentLocation: "789 Oak Street, Smalltown, USA",
-        CurrentLocation: "101 Maple Street, Bigcity, USA",
-        Profile_For: "Software Developer",
-        AssignedTo: "Jane Smith",
-        Comment: "Expert in JavaScript and React.",
-      },
-      {
-        Name: "John Doe",
-        Phone: "+1-987-654-3210",
-        Email: "john.doe@example.com",
-        Education: "Bachelor of Science in Computer Science, XYZ University",
-        Experience: "3 years as Software Developer at Tech Solutions Inc.",
-        PermanentLocation: "789 Oak Street, Smalltown, USA",
-        CurrentLocation: "101 Maple Street, Bigcity, USA",
-        Profile_For: "Software Developer",
-        AssignedTo: "Jane Smith",
-        Comment: "Expert in JavaScript and React.",
-      },
-      {
-        Name: "John Doe",
-        Phone: "+1-987-654-3210",
-        Email: "john.doe@example.com",
-        Education: "Bachelor of Science in Computer Science, XYZ University",
-        Experience: "3 years as Software Developer at Tech Solutions Inc.",
-        PermanentLocation: "789 Oak Street, Smalltown, USA",
-        CurrentLocation: "101 Maple Street, Bigcity, USA",
-        Profile_For: "Software Developer",
-        AssignedTo: "Jane Smith",
-        Comment: "Expert in JavaScript and React.",
-      },
-      {
-        Name: "John Doe",
-        Phone: "+1-987-654-3210",
-        Email: "john.doe@example.com",
-        Education: "Bachelor of Science in Computer Science, XYZ University",
-        Experience: "3 years as Software Developer at Tech Solutions Inc.",
-        PermanentLocation: "789 Oak Street, Smalltown, USA",
-        CurrentLocation: "101 Maple Street, Bigcity, USA",
-        Profile_For: "Software Developer",
-        AssignedTo: "Jane Smith",
-        Comment: "Expert in JavaScript and React.",
-      },
-      {
-        Name: "John Doe",
-        Phone: "+1-987-654-3210",
-        Email: "john.doe@example.com",
-        Education: "Bachelor of Science in Computer Science, XYZ University",
-        Experience: "3 years as Software Developer at Tech Solutions Inc.",
-        PermanentLocation: "789 Oak Street, Smalltown, USA",
-        CurrentLocation: "101 Maple Street, Bigcity, USA",
-        Profile_For: "Software Developer",
-        AssignedTo: "Jane Smith",
-        Comment: "Expert in JavaScript and React.",
-      },
-    // Add more data as needed
+  const options = [
+    { value: "New Profile", label: "New Profile" },
+    { value: "Screening", label: "Screening" },
+    { value: "HR Round", label: "HR Round" },
+    { value: "Technical Round 1", label: "Technical Round 1" },
+    { value: "Technical Round 2", label: "Technical Round 2" },
+    { value: "Senior HR", label: "Senior HR" },
+    { value: "Final Round", label: "Final Round" },
+    { value: "Final Shortlisted", label: "Final Shortlisted" },
+    { value: "Rejected", label: "Rejected" },
   ];
 
-  const setupTableColumns = () => {
-    const columns = [
-      {
-        Header: "S.No",
-        accessor: (row, index) => index + 1,
-        id: 'serial', // unique id for accessor that is not a string
-      },
-      {
-        Header: "Name",
-        accessor: "Name",
-      },
-      {
-        Header: "Email",
-        accessor: "Email",
-      },
-      {
-        Header: "Phone",
-        accessor: "Phone",
-      },
-      {
-        Header: "Experience",
-        accessor: "Experience",
-      },
-      {
-        Header: "Profile",
-        accessor: "Profile_For",
-      },
-      {
-        Header: "Assigned To",
-        accessor: "AssignedTo",
-      },
-      {
-        Header: "Comment",
-        accessor: "Comment",
-      },
-      {
-        Header: "Action",
-        Cell: () => <MdOutlineDisplaySettings className="action-button" />,
-      },
-    ];
-    setColumns(columns);
+  useEffect(() => {
+    loadData();
+  }, [dataId]);
+
+  const loadData = async () => {
+    try {
+      const response = await axios.get(
+        `${server}/hr/candidates/stage/${dataId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      const fetchedData = response.data.candidates;
+      setCurrentData(fetchedData || []);
+      toast.success(response.message || "Data loaded successfully");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error loading data");
+      setCurrentData([]);
+    }
   };
 
-  const mapDataToTableFormat = () => {
-    return rawData;
+  const handleAction = (action, candidate) => {
+    setActionOverlay({ visible: true, candidate, action });
   };
 
-  const tableInstance = useTable({ columns, data }, useSortBy);
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
-
-  const renderContent = () => {
-    switch (loadePage) {
-      case 1:
+  const handleSaveButtonClick = () => {
+    switch (actionOverlay.action) {
+      case "Add Call":
         return (
-          <div>
-            <table {...getTableProps()}>
-              <thead>
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()} className="table-header">
-                    {headerGroup.headers.map((column) => (
-                      <th
-                        {...column.getHeaderProps(column.getSortByToggleProps())}
-                      >
-                        {column.render("Header")}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody {...getTableBodyProps()}>
-                {rows.map((row) => {
-                  prepareRow(row);
-                  return (
-                    <tr {...row.getRowProps()}>
-                      {row.cells.map((cell) => (
-                        <td {...cell.getCellProps()} className="cell">
-                          {cell.render("Cell")}
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+          <AddCall
+            actionOverlay={actionOverlay}
+            setActionOverlay={setActionOverlay}
+            user={user}
+          />
         );
-      case 2:
-        return <div>Screening</div>;
-      case 3:
-        return <div>Technical Round 1</div>;
-      case 4:
-        return <div>Technical Round 2</div>;
-      case 5:
-        return <div>Technical Round 3</div>;
-      case 6:
-        return <div>Hr Round</div>;
-      case 7:
-        return <div>Finalised</div>;
-      case 8:
-        return <div>Rejected</div>;
+      case "Add Referral":
+        return (
+          <AddReferral
+            actionOverlay={actionOverlay}
+            setActionOverlay={setActionOverlay}
+          />
+        );
+      case "Schedule Interview":
+        return (
+          <ScheduleInterview
+            actionOverlay={actionOverlay}
+            setActionOverlay={setActionOverlay}
+          />
+        );
+      case "Move To":
+        return (
+          <MoveTo
+            actionOverlay={actionOverlay}
+            setActionOverlay={setActionOverlay}
+          />
+        );
+      case "Add Comment":
+        return (
+          <AddComment
+            actionOverlay={actionOverlay}
+            setActionOverlay={setActionOverlay}
+          />
+        );
       default:
-        return <div>Select an option to view details</div>;
+        break;
     }
   };
 
   return (
-    <div className="humanResource">
-      <div className="humanResource-section1">
-        <button className="button">New Candidate</button>
+    <div className="container">
+      <div className="section">
+        <div className="create-new">New Candidate</div>
+        <div className="load-data">
+          <Dropdown
+            options={options}
+            onChange={(selectedOption) => setDataId(selectedOption.value)}
+            placeholder="New Profiles"
+          />
+        </div>
       </div>
-      <div className="Header-humanResource">
-        <button className="button" onClick={() => setLoadPage(1)}>
-          New Profiles
-        </button>
-        <button className="button" onClick={() => setLoadPage(2)}>
-          Screening
-        </button>
-        <button className="button" onClick={() => setLoadPage(3)}>
-          Technical Round 1
-        </button>
-        <button className="button" onClick={() => setLoadPage(4)}>
-          Technical Round 2
-        </button>
-        <button className="button" onClick={() => setLoadPage(5)}>
-          Technical Round 3
-        </button>
-        <button className="button" onClick={() => setLoadPage(6)}>
-          Hr Round
-        </button>
-        <button className="button" onClick={() => setLoadPage(7)}>
-          Finalised
-        </button>
-        <button className="button" onClick={() => setLoadPage(8)}>
-          Rejected
-        </button>
-      </div>
-      <div className="humanResource-section">{renderContent()}</div>
+      <CandidateTable data={currentData} handleAction={handleAction} />
+      {actionOverlay.visible && handleSaveButtonClick()}
     </div>
   );
 };

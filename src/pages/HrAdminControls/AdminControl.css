@@ -1,0 +1,9 @@
+.admin-control-container{
+    display: flex;
+    padding: 5rem 0.5rem;
+    padding-left: 0;
+    height: calc(100vh - 5rem);
+}
+.per{
+    font-size: 5rem;
+}

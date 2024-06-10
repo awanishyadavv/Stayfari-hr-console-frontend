@@ -10,6 +10,7 @@
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
     "https-browserify": "^1.0.0",
+    "multiselect-react-dropdown": "^2.0.25",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "react": "^18.3.1",

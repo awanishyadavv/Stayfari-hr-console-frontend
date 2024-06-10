@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { createContext } from 'react'
 import './index.css';
-import axios from 'axios';
 
 export const server = "http://localhost:5000/api/v1"
 
