@@ -6,11 +6,14 @@ import { server } from "../../..";
 import './Overlay.css'
 
 const ScheduleInterview = ({ actionOverlay, setActionOverlay }) => {
-  // Hardcoded list of interviewers
+
   const interviewers = [
-    { name: "Awanish Yadav 1", _id: "dfjsn7sdfnskfjf" },
-    { name: "Awanish Yadav 2", _id: "dfjsn7sdfnskfjfffg" },
-    { name: "Awanish 3", _id: "skfksdbni7" },
+    { name: "Praveen Tyagi", _id: "1" },
+    { name: "Yaothing Lunghar ", _id: "2" },
+    { name: "Samir", _id: "3" },
+    { name: "Riya Verma", _id: "4" },
+    { name: "Tazeen", _id: "5" },
+    { name: "Hema", _id: "6" },
   ];
 
   // Map the interviewers to the options state

@@ -10,10 +10,13 @@ const AddCall = ({ actionOverlay, setActionOverlay, user }) => {
   const [callResult, setCallResult] = useState(null);
 
   const callResultOptions = [
-    { value: "Connected", label: "Connected" },
-    { value: "Busy", label: "Busy" },
-    { value: "Not Connected 1", label: "Couldn't Connect" },
-    { value: "Not Connected 2", label: "Couldn't Connect" },
+    { value: "Connected, JD Shared", label: "Connected, JD Shared" },
+    { value: "Not Answering", label: "Not Answering" },
+    { value: "Couldn't Connected", label: "Couldn't Connect" },
+    { value: "Cut the call", label: "Couldn't Connect" },
+    { value: "Not Interested", label: "Not Interested" },
+    { value: "Location Issue", label: "Location Issue" },
+    { value: "Out of Budjet", label: "Out of Budjet" },
   ];
 
   const saveAddCallAction = async () => {
