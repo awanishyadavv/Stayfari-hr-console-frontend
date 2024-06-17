@@ -3,20 +3,16 @@ import Dropdown from "react-dropdown";
 import { useTable, useSortBy } from "react-table";
 import './CandidateTable.css';
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { IoIosDocument } from "react-icons/io";
+import { IoMdChatboxes } from "react-icons/io";
 
-const CandidateTable = ({ data, handleAction }) => {
+const CandidateTable = ({ data, handleAction, handleResumeButtonClick, handleChatClick }) => {
   const actionOption = [
     { value: "Add Call", label: "Add Call" },
     { value: "Add Referral", label: "Add Referral" },
     { value: "Schedule Interview", label: "Schedule Interview" },
     { value: "Move To", label: "Move To" },
-    { value: "Add Comment", label: "Add Comment" },
-  ];
-
-  const resumeOption = [
-    { value: "Upload", label: "Upload" },
-    { value: "View", label: "View" },
-    { value: "Download", label: "Download" },
+    { value: "-", label: "" },
   ];
 
   const columns = React.useMemo(
@@ -40,7 +36,7 @@ const CandidateTable = ({ data, handleAction }) => {
             <div className="experience-section-experience">
               <div>Experience</div>
               <IoIosArrowRoundForward />
-            <div>{row.original.experience}</div>
+              <div>{row.original.experience}</div>
             </div>
             <div>{row.original.current_Job}</div>
           </div>
@@ -71,7 +67,7 @@ const CandidateTable = ({ data, handleAction }) => {
             {row.original.referral ? (
               <div className="poc">
                 <p>Ref</p>
-              <IoIosArrowRoundForward />
+                <IoIosArrowRoundForward />
                 <div>{row.original.referral.employeeEmail}</div>
               </div>
             ) : (
@@ -98,17 +94,16 @@ const CandidateTable = ({ data, handleAction }) => {
       {
         Header: "Resume",
         accessor: "cv",
-        Cell: () => (
-          <div className="candidate-info">
-            <Dropdown
-              options={resumeOption}
-              placeholder="Select"
-            />
+        Cell: ({ row }) => (
+          <div className="candidate-info1">
+            <IoIosDocument className="resume-button"
+              onClick={() => handleResumeButtonClick("View", row.original)}/>
+              <IoMdChatboxes className="resume-button" onClick={() => handleChatClick("Messages", row.original)}/>
           </div>
         ),
       },
     ],
-    [handleAction]
+    [handleAction, handleResumeButtonClick , handleChatClick]
   );
 
   const tableData = React.useMemo(() => data.slice().reverse(), [data]);

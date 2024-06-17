@@ -7,10 +7,10 @@ import toast from "react-hot-toast";
 import { server } from "../..";
 import axios from "axios";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { IoIosDocument } from "react-icons/io";
 
-const Row = ({ row, handleCheckboxChange, handleCommentChange, resumeOption }) => {
+const Row = ({ row, handleCheckboxChange, handleCommentChange, loadResume}) => {
   const [comment, setComment] = useState("");
-
   const onCommentChange = (e) => {
     const newComment = e.target.value;
     setComment(newComment);
@@ -41,8 +41,8 @@ const Row = ({ row, handleCheckboxChange, handleCommentChange, resumeOption }) =
               </div>
             </div>
           ) : cell.column.Header === "Resume" ? (
-            <div className="candidate-info">
-              <Dropdown options={resumeOption} placeholder="Select" />
+            <div className="candidate-info1">
+              <IoIosDocument onClick={() => loadResume(row.original._id)}/>
             </div>
           ) : (
             cell.render("Cell")
@@ -56,12 +56,6 @@ const Row = ({ row, handleCheckboxChange, handleCommentChange, resumeOption }) =
 const Interviews = () => {
   const [data, setData] = useState([]);
   const [requestedDate, setRequestedDate] = useState(new Date().toISOString().split("T")[0]);
-
-  const resumeOption = [
-    { value: "Upload", label: "Upload" },
-    { value: "View", label: "View" },
-    { value: "Download", label: "Download" },
-  ];
 
   const loadData = useCallback(async (date) => {
     try {
@@ -95,6 +89,20 @@ const Interviews = () => {
   useEffect(() => {
     loadData(requestedDate);
   }, [loadData, requestedDate]);
+
+  const loadResume = async (candidateId) => {
+      await axios
+      .get(`${server}/file-handle/resume/${candidateId}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        const googleDriveUrl = `https://drive.google.com/file/d/${res.data.resume.googleUploadedResumeId}/view`;
+        window.open(googleDriveUrl, '_blank');
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+  }
 
   const handleDateChange = (event) => {
     setRequestedDate(event.target.value);
@@ -157,7 +165,7 @@ const Interviews = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {row.original.new_interview.interviewLink}
+            Join Interview
           </a>
         </div>
       ),
@@ -256,7 +264,7 @@ const Interviews = () => {
                     row={row}
                     handleCheckboxChange={handleCheckboxChange}
                     handleCommentChange={handleCommentChange}
-                    resumeOption={resumeOption}
+                    loadResume={loadResume}
                   />
                 );
               })

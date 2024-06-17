@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { server } from "../../../index.js";
-import './Overlay.css'
+import "./Overlay.css";
 
 const AddReferral = ({ actionOverlay, setActionOverlay }) => {
-  const [employeeName, setEmployeeName] = useState('');
-  const [employeeCode, setEmployeeCode] = useState('');
-  const [employeeEmail, setEmployeeEmail] = useState('');
+  const [employeeName, setEmployeeName] = useState("");
+  const [employeeCode, setEmployeeCode] = useState("");
+  const [employeeEmail, setEmployeeEmail] = useState("");
 
   useEffect(() => {
     // Load existing referral data if available
     if (actionOverlay.candidate.referral) {
-      const { employeeName, employeeCode, employeeEmail } = actionOverlay.candidate.referral;
+      const { employeeName, employeeCode, employeeEmail } =
+        actionOverlay.candidate.referral;
       setEmployeeName(employeeName);
       setEmployeeCode(employeeCode);
       setEmployeeEmail(employeeEmail);
@@ -55,7 +56,7 @@ const AddReferral = ({ actionOverlay, setActionOverlay }) => {
   return (
     <div className="overlay">
       <div className="overlay-content">
-      <div className="overlay-heading">
+        <div className="overlay-heading">
           <p>{actionOverlay.action}</p>
           <div>
             <p>{actionOverlay.candidate.name}</p>
@@ -93,8 +94,12 @@ const AddReferral = ({ actionOverlay, setActionOverlay }) => {
               />
             </div>
           </div>
-          <button type="submit">Save</button>
-          <button onClick={() => setActionOverlay({ visible: false })}>Cancel</button>
+          <div className="overlay-action-button">
+            <button type="submit">Save</button>
+            <button onClick={() => setActionOverlay({ visible: false })}>
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>

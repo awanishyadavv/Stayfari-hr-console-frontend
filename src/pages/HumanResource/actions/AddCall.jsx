@@ -4,7 +4,7 @@ import "react-dropdown/style.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { server } from "../../../index.js";
-import './Overlay.css'
+import "./Overlay.css";
 
 const AddCall = ({ actionOverlay, setActionOverlay, user }) => {
   const [callResult, setCallResult] = useState(null);
@@ -74,8 +74,12 @@ const AddCall = ({ actionOverlay, setActionOverlay, user }) => {
             />
           </div>
         </div>
-        <button onClick={handleSave}>Save</button>
-        <button onClick={() => setActionOverlay({ visible: false })}>Cancel</button>
+        <div className="overlay-action-button">
+          <button onClick={handleSave}>Save</button>
+          <button onClick={() => setActionOverlay({ visible: false })}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );

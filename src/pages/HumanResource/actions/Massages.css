@@ -1,0 +1,69 @@
+.messages {
+    width: 50rem;
+    height: 20rem;
+    border: 1px solid grey;
+    padding: 0.2rem 0.5rem;
+    overflow: scroll;
+  }
+  
+  .overlay-action-button-2 {
+    display: flex;
+    align-items: center !important;
+    /* border: 1px solid red; */
+
+  }
+  
+  .date-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .date-wise-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .message {
+    width: fit-content;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    flex-direction: column;
+    border-radius: 5px;
+  }
+  
+  .message-left {
+    align-self: flex-start;
+    background-color: lightgrey;
+    border: 1px solid red;
+  }
+  
+  .message-right {
+    align-self: flex-end;
+    background-color: lightblue;
+    border: 1px solid green;
+  }
+  
+  .no-messages{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .send-message-btn,
+  .close-message-btn{
+    padding: 0.5rem 1rem;
+    box-sizing: content-box;
+    cursor: pointer;
+    background-color: grey;
+  }
+
+  .send-message-btn:hover{
+    background-color: none;
+    border: 1px solid grey;
+  }

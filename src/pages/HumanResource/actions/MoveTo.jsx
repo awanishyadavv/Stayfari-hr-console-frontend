@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { server } from "../../../index.js";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import './Overlay.css'
+import "./Overlay.css";
 
 const MoveTo = ({ actionOverlay, setActionOverlay }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -55,7 +55,7 @@ const MoveTo = ({ actionOverlay, setActionOverlay }) => {
   return (
     <div className="overlay">
       <div className="overlay-content">
-      <div className="overlay-heading">
+        <div className="overlay-heading">
           <p>{actionOverlay.action}</p>
           <div>
             <p>{actionOverlay.candidate.name}</p>
@@ -66,7 +66,7 @@ const MoveTo = ({ actionOverlay, setActionOverlay }) => {
         <div className="display-flex">
           <div className="overlay-key">Move to</div>
           <Dropdown
-             options={options}
+            options={options}
             onChange={(selectedOption) =>
               setSelectedOption(selectedOption.value)
             }
@@ -84,10 +84,12 @@ const MoveTo = ({ actionOverlay, setActionOverlay }) => {
             onChange={(e) => setComment(e.target.value)}
           />
         </div>
-        <button onClick={handleSave}>Save</button>
-        <button onClick={() => setActionOverlay({ visible: false })}>
-          Cancel
-        </button>
+        <div className="overlay-action-button">
+          <button onClick={handleSave}>Save</button>
+          <button onClick={() => setActionOverlay({ visible: false })}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );

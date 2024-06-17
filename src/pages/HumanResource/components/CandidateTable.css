@@ -68,3 +68,13 @@ thead tr th {
     border: none !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
 }
+
+
+.resume-button{
+    cursor: pointer;
+    color: gray;
+}
+
+.resume-button:hover{
+    color: blue;
+}

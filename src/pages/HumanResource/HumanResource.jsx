@@ -10,7 +10,8 @@ import AddCall from "./actions/AddCall";
 import AddReferral from "./actions/AddReferral";
 import ScheduleInterview from "./actions/ScheduleInterview";
 import MoveTo from "./actions/MoveTo";
-import AddComment from "./actions/AddComment";
+import Resume from "./actions/Resume.jsx";
+import Messages from "./actions/Messages.jsx";
 
 const HumanResource = () => {
   const [dataId, setDataId] = useState("New Profile");
@@ -66,6 +67,14 @@ const HumanResource = () => {
     setActionOverlay({ visible: true, candidate, action });
   };
 
+  const handleResumeButtonClick = (action, candidate) => {
+    setActionOverlay({ visible: true, candidate, action });
+  };
+
+  const handleChatClick = (action, candidate) => {
+    setActionOverlay({ visible: true, candidate, action });
+  };
+
   const handleSaveButtonClick = () => {
     switch (actionOverlay.action) {
       case "Add Call":
@@ -97,11 +106,21 @@ const HumanResource = () => {
             setActionOverlay={setActionOverlay}
           />
         );
-      case "Add Comment":
+      case "Upload":
+      case "View":
+      case "Download":
         return (
-          <AddComment
+          <Resume
             actionOverlay={actionOverlay}
             setActionOverlay={setActionOverlay}
+          />
+        );
+      case "Messages":
+        return (
+          <Messages
+            actionOverlay={actionOverlay}
+            setActionOverlay={setActionOverlay}
+            user={user}
           />
         );
       default:
@@ -121,7 +140,12 @@ const HumanResource = () => {
           />
         </div>
       </div>
-      <CandidateTable data={currentData} handleAction={handleAction} />
+      <CandidateTable
+        data={currentData}
+        handleAction={handleAction}
+        handleResumeButtonClick={handleResumeButtonClick}
+        handleChatClick={handleChatClick}
+      />
       {actionOverlay.visible && handleSaveButtonClick()}
     </div>
   );
