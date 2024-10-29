@@ -43,6 +43,7 @@ const Login = () => {
       }
     } catch (error) {
       toast.error(error.response.data.message);
+      console.log(error)
       setIsAuthenticated(false);
       setIsAuthenticatedAdmin(false);
     }

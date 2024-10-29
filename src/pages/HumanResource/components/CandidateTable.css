@@ -78,3 +78,7 @@ thead tr th {
 .resume-button:hover{
     color: blue;
 }
+
+.table-font{
+    font-size: 0.8rem;
+}
